@@ -1,18 +1,19 @@
-name: jobs
-
+name: Job
 on: [push]
-
 jobs:
-  build:
+  Display-python-version:
     runs-on: ubuntu-latest
     steps:
-    - run: python --version
-    - uses: actions/checkout@v3
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install FLASK
-        pip install pylint
-    - name: Analysing the code with pylint
-      run: |
-        pylint $(git ls-files '*.py')
+      - name: Display python version
+        uses: actions/checkout@v3
+      - run: python --version
+  Run-pylint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install dependencies
+        uses: actions/checkout@v3
+      - run: |
+          python -m pip install --upgrade pip
+          pip install pylint
+      - run: |
+          find . -name '*.py' -exec pylint {} \;
